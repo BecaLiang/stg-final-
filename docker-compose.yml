@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .
+    container_name: my_postgres_container
+    environment:
+      POSTGRES_DB: eqmanagement
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ssl:/var/lib/postgresql/ssl
+    networks:
+      - eqmanagement_network
+
+volumes:
+  postgres_data:
+
+networks:
+  eqmanagement_network:
+    driver: bridge 
